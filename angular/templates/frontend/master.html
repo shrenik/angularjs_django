@@ -1,0 +1,34 @@
+{% load i18n %}
+<!DOCTYPE html >
+<html ng-app>
+
+<title>{% trans "angular"|title %}</title>
+
+{% block header_files %}
+<!-- Le javascript -->
+<script type="text/javascript" src="{{ STATIC_URL }}angular/js/angular.js"></script>
+{% endblock %}
+</head>
+
+<body>
+
+{% block container %}
+<div>
+
+    {% block header %}
+        <div>
+            {% block content_header %}
+                <h1>{% trans "angularjs"|title %}<small></small></h1>
+            {% endblock %}
+        </div>
+    {% endblock %}
+
+    {% block content %}
+    <!-- CONTENT BLOCK -->
+    {% endblock %}
+
+</div><!-- div container -->
+{% endblock %}
+
+</body>
+</html>

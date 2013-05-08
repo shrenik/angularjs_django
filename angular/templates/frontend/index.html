@@ -1,0 +1,10 @@
+{% extends "frontend/master.html" %}
+{% load i18n %}
+
+{% block content %}
+<div>
+  <label>Name:</label>  <input type="text" ng-model="yourName" placeholder="Enter a name here">
+
+  Hello {{yourName}}!
+</div>
+{% endblock %}
