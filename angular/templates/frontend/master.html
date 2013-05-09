@@ -9,6 +9,9 @@
 <script type="text/javascript" src="{{ STATIC_URL }}angular/js/angular.js"></script>
 {% endblock %}
 
+{% block extra_header_file %}
+{% endblock %}
+
 </head>
 
 <body>
@@ -22,6 +25,7 @@
                 <h1>{% trans "angularjs"|title %}<small></small></h1>
             {% endblock %}
         </div>
+        <hr/>
     {% endblock %}
 
     {% block content %}

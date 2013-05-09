@@ -1,13 +1,100 @@
 {% extends "frontend/master.html" %}
 {% load i18n %}
 
+{% block extra_header_file %}
+<style type="text/css">
+    .done-true {
+        text-decoration: line-through;
+        color: grey;
+    }
+</style>
+<script type="text/javascript">
+    // used by Example 2
+    function TodoCtrl($scope) {
+        $scope.todos = [
+            {text:'learn angular', done:true},
+            {text:'build an angular app', done:false}
+        ];
+
+        $scope.addTodo = function() {
+            $scope.todos.push({text:$scope.todoText, done:false});
+            $scope.todoText = '';
+        };
+
+        $scope.remaining = function() {
+            var count = 0;
+            angular.forEach($scope.todos, function(todo) {
+                count += todo.done ? 0 : 1;
+            });
+            return count;
+        };
+
+        $scope.archive = function() {
+            var oldTodos = $scope.todos;
+            $scope.todos = [];
+            angular.forEach(oldTodos, function(todo) {
+                if (!todo.done) $scope.todos.push(todo);
+            });
+        };
+    }
+
+    // used by Example 3
+    function InvoiceCntl($scope) {
+        $scope.qty = 1;
+        $scope.cost = 19.95;
+    }
+</script>
+{% endblock %}
 {% block content %}
 
 {% verbatim %}
+<h4>example 1</h4>
 <div>
   <label>Name:</label>  <input type="text" ng-model="yourName" placeholder="Enter a name here">
 
   Hello {{yourName}} !
 </div>
 {% endverbatim %}
+
+<hr/>
+
+<h4>example 2</h4>
+{% verbatim %}
+<div>
+    <h2>Todo</h2>
+    <div ng-controller="TodoCtrl">
+        <span>{{ remaining() }} of {{ todos.length }} remaining</span>
+        [ <a href="" ng-click="archive()">archive</a> ]
+        <ul class="unstyled">
+            <li ng-repeat="todo in todos">
+                <input type="checkbox" ng-model="todo.done">
+                <span class="done-{{ todo.done }}">{{ todo.text }}</span>
+            </li>
+        </ul>
+        <form ng-submit="addTodo()">
+            <input type="text" ng-model="todoText" size="30" placeholder="add new todo here">
+            <input class="btn-primary" type="submit" value="add">
+        </form>
+    </div>
+</div>
+{% endverbatim %}
+
+<hr/>
+
+<h4>example 3</h4>
+{% verbatim %}
+<div ng-controller="InvoiceCntl">
+    <b>Invoice:</b><br><br>
+    <table>
+        <tr><td>Quantity</td><td>Cost</td></tr>
+        <tr>
+            <td><input type="number" ng-pattern="/\d+/" step="1" min="0" ng-model="qty" required ></td>
+            <td><input type="number" ng-model="cost" required ></td>
+        </tr>
+    </table>
+    <b>Total:</b> {{qty * cost | currency}}
+</div>
+{% endverbatim %}
+
+
 {% endblock %}
